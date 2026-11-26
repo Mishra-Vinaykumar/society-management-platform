@@ -21,6 +21,16 @@ Do not access another person's data, modify production records, disrupt service,
 
 The application is not yet released. A supported-version table, response targets, and disclosure policy must be added before production launch.
 
+## Public repository controls
+
+- The repository is public during initial development and may become private later.
+- Public visibility does not make secrets, resident information, society documents, production exports, private logs, or real environment configuration acceptable source content.
+- Use synthetic identities and records for examples, tests, screenshots, fixtures, and issue reproduction.
+- Do not add an open-source licence without a new approved ownership decision.
+- Phase 01 CI must add secret scanning and dependency review appropriate for a public repository.
+- A later private conversion does not remove material from clones, forks, caches, package artefacts, or prior public history.
+- If sensitive content is committed, immediately stop further distribution, rotate affected credentials, preserve incident evidence, assess exposure, and perform approved history remediation. Deleting only the latest file is insufficient.
+
 ## Security objectives
 
 - Prevent unauthorised access across societies, blocks, units, households, and functional responsibilities.
@@ -99,6 +109,7 @@ The project treats these as primary risks:
 ## Secrets and configuration
 
 - Never commit passwords, access tokens, service keys, database credentials, webhook secrets, private keys, or real `.env` files.
+- Never commit real resident information, private society documents, production exports, or production database snapshots.
 - Commit only documented `.env.example` placeholders.
 - Keep secrets in the approved environment secret store and restrict by service and environment.
 - Separate runtime, migration, CI, staging, and production credentials.

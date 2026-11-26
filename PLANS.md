@@ -5,6 +5,7 @@ The Society Management Platform is delivered in controlled phases. Only one phas
 ## Status legend
 
 - `Complete`: acceptance criteria met and documented.
+- `Ready`: prerequisites are satisfied and implementation may begin only when explicitly instructed.
 - `Awaiting review`: implementation is complete but owner approval is pending.
 - `Planned`: not approved for implementation.
 - `Blocked`: cannot proceed until a named decision or dependency is resolved.
@@ -13,8 +14,8 @@ The Society Management Platform is delivered in controlled phases. Only one phas
 
 | Phase | Name | Status | Primary exit criteria |
 | --- | --- | --- | --- |
-| 00 | Product requirements and engineering rules | Awaiting review | Required blueprint documents exist; confirmed requirements, proposals, risks, and open decisions are distinguishable. |
-| 01 | Repository and project foundation | Planned | pnpm/Turborepo workspace, web and API foundations, shared packages, CI, tests, builds, and setup documentation pass. |
+| 00 | Product requirements and engineering rules | Complete | Required blueprint documents exist; confirmed requirements, proposals, risks, and open decisions are distinguishable. |
+| 01 | Repository and project foundation | Ready | pnpm/Turborepo workspace, web and API foundations, shared packages, CI, tests, builds, and setup documentation pass. |
 | 02 | UI/UX design system | Planned | Accessible responsive design system and clearly labelled prototype dashboards pass visual and accessibility smoke checks. |
 | 03 | Database and tenant isolation | Planned | Repeatable foundational migrations, constraints, RLS, fixtures, ER model, and cross-tenant denial tests pass. |
 | 04 | Authentication and authorisation | Planned | Supabase Auth integration, scoped roles, server guards, session flows, and access-control tests pass. |
@@ -59,31 +60,40 @@ Establish the shared product definition and engineering constraints before any f
 - [x] UI/UX expectations and honest prototype behaviour documented.
 - [x] Security expectations and vulnerability reporting guidance documented.
 - [x] Open business rules and approval points listed without inventing policy.
+- [x] Node.js and pnpm baseline, local-first development, public-repository policy, and working product name recorded as accepted ADRs.
+- [x] Independent architecture, security, maintainability, scalability, and mobile-readiness review completed.
 - [x] No application framework or business functionality initialised.
-- [ ] Product owner reviews and approves Phase 00.
+- [x] Product owner reviewed and approved Phase 00.
 
 ## Phase 01 — Repository and project foundation
 
-Phase 01 may begin only after Phase 00 approval.
+Phase 01 is ready. Implementation begins only after an explicit Phase 01 instruction.
 
 ### Planned scope
 
 - Configure pnpm workspaces and Turborepo.
+- Pin Node.js `26.13.1` and pnpm `12.23.0` as specified by [ADR-001](docs/decisions/ADR-001-node-and-pnpm-versions.md).
 - Create `apps/web` with Next.js, React, strict TypeScript, Tailwind CSS, and the shadcn/ui foundation.
 - Create `apps/api` with NestJS, strict TypeScript, health endpoint, and OpenAPI foundation.
 - Create `packages/contracts`, `packages/api-client`, and `packages/config`.
-- Configure shared TypeScript, ESLint, Prettier, environment validation, unit tests, Playwright, root scripts, and GitHub Actions.
+- Configure shared TypeScript, ESLint, Prettier, environment validation, Vitest for web/shared packages, Jest for the API, Playwright, root scripts, and GitHub Actions.
 - Add secret-free `.env.example` files and cross-platform setup documentation.
+- Keep local development independent from production hosting and keep the NestJS API provider-neutral as specified by [ADR-002](docs/decisions/ADR-002-local-development-and-portable-api-hosting.md).
+- Add public-repository secret scanning and synthetic-data safeguards without adding an open-source licence, as specified by [ADR-003](docs/decisions/ADR-003-public-repository-without-license.md).
 
 ### Acceptance criteria
 
 - Dependency installation succeeds from a clean checkout.
+- Node.js and pnpm pins match ADR-001 locally and in CI.
 - Web and API run independently and through the root development command.
 - API health endpoint responds successfully.
 - Format check, lint, type-check, tests, and builds pass.
+- Framework generation and Turborepo tasks execute successfully under Node.js `26.13.1`.
+- Initial development does not require a production host, paid resource, production credential, or real resident data.
 - Lockfile is committed only with approval.
 - No production dashboard or domain module is implemented.
 - No credential or secret is committed.
+- No open-source licence is added.
 
 ## Later phase controls
 

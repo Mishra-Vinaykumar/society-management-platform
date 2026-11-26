@@ -2,7 +2,7 @@
 
 ## Status
 
-This document defines the product experience required for Phase 02 and later feature phases. The supplied hierarchy diagram is a conceptual reference for tenant and permission structure, not final visual branding.
+This document defines the product experience required for Phase 02 and later feature phases. **Society Management Platform** is the approved working name. The supplied hierarchy diagram is a conceptual reference for tenant and permission structure, not final visual branding; Phase 02 develops the final visual identity.
 
 ## Experience principles
 

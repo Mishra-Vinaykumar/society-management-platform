@@ -2,7 +2,7 @@
 
 ## Status
 
-This is the Phase 00 target architecture. Technology choices and major boundaries are confirmed by the project brief. Detailed deployment sizing, provider-specific API hosting, and some domain rules remain proposed pending approval.
+This is the approved Phase 00 target architecture. Technology choices and major boundaries are confirmed by the project brief and accepted ADRs. Detailed deployment sizing, the production API host, and domain rules explicitly marked proposed or open remain pending later decisions.
 
 ## Architecture goals
 
@@ -58,9 +58,9 @@ flowchart LR
 | Contracts | OpenAPI plus shared TypeScript validation and client packages | Stable request/response definitions for web and future mobile. |
 | Data | PostgreSQL on Supabase, Drizzle ORM | Relational source of truth, constraints, migrations, transactions, and RLS. |
 | Identity and files | Supabase Auth and private Supabase Storage | User identity, sessions, and protected attachments. |
-| Workspace | pnpm and Turborepo | Monorepo task orchestration and shared configuration. |
+| Workspace | Node.js 26.13.1, pnpm 12.23.0, and Turborepo | Pinned runtime, package management, monorepo task orchestration, and shared configuration. |
 | Testing | Vitest, Jest, Playwright, database integration tests | Unit, integration, contract, security, and user journey verification. |
-| Delivery | GitHub Actions, Vercel web hosting, approved API host | Controlled CI/CD and separate web/API deployment. |
+| Delivery | GitHub Actions, planned Vercel web target, provider-independent API | Controlled CI/CD and separate web/API deployment; production API host deferred to Phase 14. |
 
 ## Target monorepo
 
@@ -72,7 +72,7 @@ apps/
 packages/
   contracts/              Transport schemas and shared public types
   api-client/             Generated or typed REST client
-  database/               Drizzle schema, migrations, and database helpers
+  database/               Drizzle schema, migrations, and database helpers (Phase 03)
   config/                 Shared TypeScript and tooling configuration
 supabase/
   migrations/             Versioned authoritative SQL migrations
@@ -88,6 +88,14 @@ docs/
 ```
 
 Directories are added only when required by an approved phase.
+
+## Local development baseline
+
+- Initial phases run locally and do not require production hosting, paid services, production credentials, or real resident data.
+- Node.js `26.13.1` and pnpm `12.23.0` are pinned during Phase 01 under [ADR-001](../decisions/ADR-001-node-and-pnpm-versions.md).
+- The NestJS API remains provider-neutral under [ADR-002](../decisions/ADR-002-local-development-and-portable-api-hosting.md).
+- Configuration is environment-based, validated at startup, and represented in source only by safe placeholders.
+- Any local database, identity, or storage substitute must preserve the contracts and security properties required for the phase being tested.
 
 ## Application boundaries
 
@@ -127,6 +135,15 @@ Directories are added only when required by an approved phase.
 - Attachments remain private by default.
 - The API verifies ownership, scope, file policy, and permission before issuing controlled access.
 - Metadata in PostgreSQL links each object to its tenant, purpose, uploader, and lifecycle.
+
+## Cross-client compatibility
+
+- `packages/contracts` contains transport schemas and public types without Next.js, browser DOM, Node.js server, or React Native framework dependencies.
+- `packages/api-client` depends on contracts and accepts platform-specific transport, token, and storage adapters rather than importing presentation frameworks.
+- Dates cross the API as documented strings, money as exact minor units plus currency, and identifiers as opaque values.
+- Authentication token acquisition and secure persistence remain client responsibilities behind an interface; authorisation remains an API responsibility.
+- Web and future mobile clients use the same versioned REST/OpenAPI contracts, error model, pagination, idempotency semantics, and permission rules.
+- Shared code contains no private server credentials and no assumptions about cookies, browser storage, or mobile secure storage unless isolated behind an adapter.
 
 ## Modular monolith
 
@@ -212,9 +229,10 @@ The exact job runtime and hosting choice is deferred until the notification phas
 
 ### Confirmed direction
 
-- Vercel hosts the Next.js web application.
-- An approved provider independently hosts the NestJS API.
-- Supabase hosts PostgreSQL, Auth, and private Storage.
+- Initial phases use local development and do not create production infrastructure.
+- The Next.js web application and NestJS API remain independently deployable.
+- The NestJS API is hosting-provider independent; the production provider is selected during Phase 14.
+- Vercel remains the planned web deployment target, and Supabase remains the planned PostgreSQL, Auth, and private Storage platform, subject to deployment approval and environment provisioning in their approved phases.
 - Development, staging, and production use separate configuration; staging and production databases are separate.
 
 ### Proposed controls
@@ -225,7 +243,7 @@ The exact job runtime and hosting choice is deferred until the notification phas
 - Use HTTPS only, restrictive CORS, secure cookies where applicable, and environment-specific allowed origins.
 - Keep rollback and backward-compatible migration procedures in the operations runbook.
 
-Public deployment, provider purchase, DNS, and production migration remain outside scope until explicit approval.
+Remote resource creation, public deployment, provider purchase, DNS, and production migration remain outside scope until explicit approval.
 
 ## Reliability and observability
 

@@ -9,6 +9,7 @@ This file defines the permanent working rules for the Society Management Platfor
 - Keep the web application, API, shared contracts, data access, and future mobile application independently deployable inside one monorepo.
 - Use a modular monolith for the initial backend. Do not introduce microservices without an approved architecture decision.
 - Treat requirements marked **proposed** or **open** as unapproved. Do not turn them into business rules without a recorded decision.
+- Use **Society Management Platform** as the working product name; final branding belongs to Phase 02.
 
 ## Required workflow
 
@@ -23,12 +24,20 @@ This file defines the permanent working rules for the Society Management Platfor
 9. Use a focused branch and conventional commit. Do not push, deploy, migrate remote data, create paid resources, or modify external services without explicit approval.
 10. Stop at the phase boundary and report unresolved decisions and verification limits.
 
+## Approved development baseline
+
+- Follow [ADR-001](docs/decisions/ADR-001-node-and-pnpm-versions.md): Phase 01 pins Node.js `26.13.1` and pnpm `12.23.0` exactly in local and CI configuration.
+- Follow [ADR-002](docs/decisions/ADR-002-local-development-and-portable-api-hosting.md): initial phases are local-first and the NestJS API remains hosting-provider independent.
+- Follow [ADR-003](docs/decisions/ADR-003-public-repository-without-license.md): the repository is public during initial development, contains no open-source licence, and must contain no secrets or real resident or society data.
+- Use synthetic fixtures, placeholder configuration, and public-safe screenshots, logs, examples, issues, and documentation.
+
 ## Architecture rules
 
 - Use strict TypeScript. Avoid `any`; when unavoidable, isolate it at an integration boundary and document why.
 - Separate presentation, application, domain, and infrastructure responsibilities.
 - Keep controllers thin. Business rules belong in services or domain modules, and persistence belongs behind data-access boundaries.
 - Share API contracts, validation schemas, and generated clients instead of duplicating request or response types.
+- Keep shared contracts and the API client platform-neutral: no Next.js, browser DOM, Node.js-only, or React Native-specific dependency may leak into their public contract surface without an approved adapter boundary.
 - Prefer dependency injection and explicit interfaces at external boundaries.
 - Keep modules cohesive and dependencies directional. Avoid circular imports and cross-module database access.
 - Use environment validation at application startup. Commit examples only, never real credentials.
@@ -92,3 +101,4 @@ This file defines the permanent working rules for the Society Management Platfor
 - Do not rewrite shared history or use destructive Git operations without explicit approval.
 - Update documentation when behaviour, architecture, setup, security controls, or decisions change.
 - Do not add tool-generated attribution, promotional banners, or unrelated authorship statements to product files.
+- Do not add a `LICENSE` file or licence declaration without a new approved ownership decision.

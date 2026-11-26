@@ -2,7 +2,7 @@
 
 ## Status
 
-These are the proposed standards for the NestJS REST API and shared clients. They become binding when approved in Phase 01 and implemented consistently. Domain-specific rules remain governed by their approved phase requirements.
+These are the approved Phase 00 baseline standards for the NestJS REST API and shared clients. Items explicitly labelled proposed require confirmation during Phase 01 implementation or their owning feature phase. Domain-specific rules remain governed by approved phase requirements.
 
 ## Core principles
 
@@ -12,6 +12,14 @@ These are the proposed standards for the NestJS REST API and shared clients. The
 - Predictable errors, pagination, idempotency, concurrency behaviour, and observability.
 - Backward-compatible evolution where practical.
 - Shared generated or typed client for web and future mobile applications.
+
+## Client portability
+
+- Public contracts must not depend on Next.js request types, browser DOM types, Node.js server objects, or React Native framework types.
+- The shared API client accepts environment-specific fetch, token-provider, and secure-persistence adapters.
+- Cookie handling is a web adapter concern; mobile secure token storage is a future mobile adapter concern.
+- No client-supplied token, role, or active scope becomes authoritative merely because a shared client produced it.
+- Contract tests must exercise the same JSON representation and error semantics used by both web and future mobile clients.
 
 ## Base paths and versioning
 

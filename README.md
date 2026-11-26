@@ -6,9 +6,21 @@ The product will provide one controlled system for society structure, residentia
 
 ## Current status
 
-**Phase 00 — Product requirements and engineering rules: awaiting review.**
+**Phase 00 — Product requirements and engineering rules: complete.**
 
-This phase contains documentation only. Application frameworks and business functionality intentionally begin in Phase 01 after approval.
+**Phase 01 — Repository and project foundation: ready, not started.**
+
+Phase 00 contains documentation only. Application frameworks and business functionality intentionally begin with a separate Phase 01 implementation instruction.
+
+## Approved foundation decisions
+
+- Working product name: **Society Management Platform**; final branding is developed in Phase 02.
+- Runtime baseline: Node.js `26.13.1` and pnpm `12.23.0`, pinned exactly during Phase 01.
+- Initial development is local-first, and the NestJS API remains hosting-provider independent.
+- Production hosting selection is deferred to deployment preparation.
+- The repository is public during initial development and may become private later.
+- No open-source licence is granted or added at this stage.
+- Secrets, production credentials, and real resident or society information must never be committed.
 
 ## Architecture direction
 
@@ -18,8 +30,9 @@ This phase contains documentation only. Application frameworks and business func
 - PostgreSQL on Supabase with Drizzle ORM and defence-in-depth row-level security.
 - Supabase Auth and private Supabase Storage.
 - Shared contracts and API client for web and future React Native clients.
-- Vercel for the web application and an independently hosted API.
+- Vercel remains the planned web deployment target; the independent API host is selected during Phase 14.
 - Strict tenant isolation at society, block, residential-unit, and household scopes.
+- Platform-neutral contracts and API client boundaries for the future React Native application.
 
 ## Documentation
 
@@ -39,6 +52,10 @@ This phase contains documentation only. Application frameworks and business func
 
 - [Delivery plan](PLANS.md)
 - [Open decisions](docs/decisions/OPEN_DECISIONS.md)
+- [ADR-001: Node.js and pnpm versions](docs/decisions/ADR-001-node-and-pnpm-versions.md)
+- [ADR-002: Local development and portable API hosting](docs/decisions/ADR-002-local-development-and-portable-api-hosting.md)
+- [ADR-003: Public repository without an open-source licence](docs/decisions/ADR-003-public-repository-without-license.md)
+- [ADR-004: Working product name](docs/decisions/ADR-004-working-product-name.md)
 - [Security policy](SECURITY.md)
 - [Repository engineering guide](AGENTS.md)
 
@@ -52,32 +69,40 @@ This phase contains documentation only. Application frameworks and business func
 - Show honest unavailable states instead of fabricated production data.
 - Test critical workflows, access denials, concurrency, and failure paths.
 
-## Planned repository layout
+## Planned Phase 01 repository layout
 
 ```text
 apps/
   web/
   api/
-  mobile/              # Future phase only
 packages/
   contracts/
   api-client/
-  database/
   config/
-supabase/
-  migrations/
-  tests/
 docs/
   requirements/
   architecture/
   decisions/
   phases/
   testing/
+.github/
+  workflows/
+.gitignore
+.env.example
+.nvmrc
+package.json
+pnpm-workspace.yaml
+pnpm-lock.yaml
+turbo.json
+AGENTS.md
+PLANS.md
+SECURITY.md
+README.md
 ```
 
-Directories are introduced only when their phase requires them; the repository will not be filled with unused placeholders.
+The database package and Supabase migration structure are introduced with the database phase. `apps/mobile` is introduced only in the future mobile phase. Directories are added when their approved phase requires them rather than as unused placeholders.
 
 ## Next approval
 
-Review the Phase 00 documents and resolve the decisions marked as required before Phase 01. After approval, Phase 01 will establish the monorepo, web and API foundations, shared packages, CI, tests, and local development workflow.
+Phase 01 is ready to establish the monorepo, web and API foundations, shared packages, CI, tests, and local development workflow. It has not started and requires a separate implementation instruction.
 

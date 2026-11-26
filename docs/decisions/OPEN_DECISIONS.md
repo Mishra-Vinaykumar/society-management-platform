@@ -4,16 +4,16 @@
 
 The project brief intentionally leaves society policies and business rules unconfirmed. This register prevents proposals from becoming accidental requirements. A decision is complete only when the product owner approves it and the outcome is recorded in a dated architecture or product decision record.
 
-Priority indicates the first phase that is materially blocked or constrained by the decision.
+Priority indicates the first phase that is materially blocked or constrained by the decision. Accepted decisions remain listed here for traceability and link to their authoritative ADR.
 
-## Decisions required before Phase 01
+## Resolved decisions for Phase 01
 
-| ID | Decision | Why it matters | Proposed direction | Status |
+| ID | Decision | Resolution | Record | Status |
 | --- | --- | --- | --- | --- |
-| DEC-001 | Minimum supported Node.js and pnpm versions | Reproducible local development and CI | Select stable versions supported by the chosen Next.js, NestJS, and Turborepo releases; pin them in repository metadata. | Open |
-| DEC-002 | API hosting target for development and eventual production | Affects runtime constraints, background jobs, networking, and deployment documentation | Keep the API portable in Phase 01; approve a provider before deployment work. | Open |
-| DEC-003 | License and contribution policy | Determines reuse and contributor expectations | Keep the repository private and omit an open-source license until ownership decides. | Open |
-| DEC-004 | Product name and initial visual brand | Affects metadata and Phase 02 design direction | Use “Society Management Platform” as a working product name with neutral branding. | Open |
+| DEC-001 | Node.js and pnpm versions | Node.js `26.13.1` and pnpm `12.23.0`; pin exactly during Phase 01. | [ADR-001](ADR-001-node-and-pnpm-versions.md) | Decided |
+| DEC-002 | Development and API hosting | Local-first initial phases; provider-independent API; production host deferred to Phase 14. | [ADR-002](ADR-002-local-development-and-portable-api-hosting.md) | Decided |
+| DEC-003 | Repository visibility and licence | Public during initial development, potentially private later; no open-source licence; no secrets or real resident data. | [ADR-003](ADR-003-public-repository-without-license.md) | Decided |
+| DEC-004 | Product name and visual brand | “Society Management Platform” is the working name; final branding belongs to Phase 02. | [ADR-004](ADR-004-working-product-name.md) | Decided |
 
 ## Decisions required before Phase 03
 

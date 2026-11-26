@@ -43,7 +43,7 @@ The exact building/block relationship is unresolved. Until approved, implementat
 | Committee Member | Society or block | Perform explicitly assigned responsibilities. | Confirmed actor; responsibility catalogue open. |
 | Homeowner | Residential membership | Use approved services for owned residences. | Confirmed actor; detailed grants proposed. |
 | Tenant | Residential membership | Use approved services during valid tenancy. | Confirmed actor; detailed grants proposed. |
-| Authorised Resident | Residential membership | Use a limited approved subset for an associated residence. | Proposed supporting role. |
+| Authorised Resident | Residential membership | Use a limited approved subset for an associated residence. | Confirmed actor category; final role mapping and grants proposed. |
 
 ## Capability matrix
 

@@ -2,7 +2,7 @@
 
 ## Status
 
-This document defines a preliminary relational model and data-ownership strategy. It is not a migration specification. Phase 03 will finalise approved names, columns, constraints, policies, and migrations after the hierarchy, role, occupancy, retention, and financial decisions required for that phase are approved.
+This approved Phase 00 baseline defines a preliminary relational model and data-ownership strategy. It is not a migration specification. Phase 03 will finalise approved names, columns, constraints, policies, and migrations after the hierarchy, role, occupancy, retention, and financial decisions required for that phase are approved.
 
 ## Design principles
 
@@ -161,7 +161,7 @@ Indexes are not added speculatively when write cost outweighs demonstrated value
 - A clean database can apply all migrations in order.
 - Roll-forward is preferred for production fixes; rollback feasibility is documented per migration.
 - Development, staging, and production databases are separate.
-- Seed data is development-only, deterministic, clearly synthetic, and contains no fixed production passwords.
+- Seed data is development-only, deterministic, clearly synthetic, and contains no real resident information or fixed production passwords.
 - Remote migrations require explicit approval.
 
 ## Database verification plan

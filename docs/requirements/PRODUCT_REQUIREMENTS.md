@@ -3,7 +3,7 @@
 ## Document status
 
 - Phase: 00 — Product requirements and engineering rules
-- Status: Proposed for product-owner review
+- Status: Approved Phase 00 baseline; sections marked proposed or open remain unapproved
 - Product: Society Management Platform
 
 This document separates **confirmed direction** from **proposed detail**. Confirmed direction comes from the approved project brief. Proposed detail is a design recommendation and must not be treated as a final society policy. Unresolved business rules are tracked in [Open Decisions](../decisions/OPEN_DECISIONS.md).
@@ -15,6 +15,18 @@ This document separates **confirmed direction** from **proposed detail**. Confir
 Build a production-ready, secure, maintainable, and scalable multi-tenant platform that digitises residential society management. It connects platform operators, society management, block committees, homeowners, tenants, and authorised residents through role-specific experiences and a shared source of truth.
 
 The first product is a responsive web application. A React Native and Expo application may be added after the web platform is stable, using the same API, database, authentication, permissions, notifications, and financial business logic.
+
+## Confirmed project governance
+
+- Use **Society Management Platform** as the working name; final branding is developed in Phase 02.
+- Use local development for the initial phases and keep the NestJS API hosting-provider independent.
+- Defer production hosting selection and all production deployment actions to the controlled deployment phase.
+- Keep the repository public during initial development, with the option to make it private later.
+- Do not add an open-source licence unless a later ownership decision approves one.
+- Never commit credentials, production configuration, real resident information, real society documents, or production exports.
+- Use clearly synthetic development and test data.
+
+Technical implementation decisions are recorded in [ADR-001](../decisions/ADR-001-node-and-pnpm-versions.md), [ADR-002](../decisions/ADR-002-local-development-and-portable-api-hosting.md), [ADR-003](../decisions/ADR-003-public-repository-without-license.md), and [ADR-004](../decisions/ADR-004-working-product-name.md).
 
 ## Product outcomes
 
@@ -43,20 +55,20 @@ Final targets require product-owner approval and baseline data. Candidate measur
 
 ## Actors and scopes
 
-| Actor | Confirmed responsibility | Typical scope |
-| --- | --- | --- |
-| Platform Super Admin | Operates the multi-society platform and manages authorised platform administration. | Platform and explicitly authorised societies. |
-| Society Chairman | Leads and administers an assigned society. | Assigned society. |
-| Society Admin | Performs delegated society administration. | Assigned society and granted capabilities. |
-| Secretary | Performs approved secretarial and communication duties. | Assigned society and granted capabilities. |
-| Treasurer | Performs approved billing, payment, expense, and reporting duties. | Assigned society and granted capabilities. |
-| Block Head | Coordinates approved work for an assigned building or block. | Assigned blocks. |
-| Committee Member | Performs specifically assigned responsibilities. | Assigned society or blocks and granted capabilities. |
-| Homeowner | Accesses approved information and services for owned residences. | Authorised residential memberships. |
-| Tenant | Accesses approved information and services for occupied residences. | Authorised residential memberships during valid occupancy. |
-| Authorised Resident | May represent another approved occupant category. | Explicitly authorised residential memberships. |
+| Actor or role | Intended responsibility | Typical scope | Requirement status |
+| --- | --- | --- | --- |
+| Platform Super Admin | Operates the multi-society platform and manages authorised platform administration. | Platform and explicitly authorised societies. | Confirmed actor. |
+| Society Chairman | Leads and administers an assigned society. | Assigned society. | Confirmed actor. |
+| Society Admin | Performs delegated society administration. | Assigned society and granted capabilities. | Confirmed administrator category; final title and grants proposed. |
+| Secretary | Performs approved secretarial and communication duties. | Assigned society and granted capabilities. | Proposed launch role. |
+| Treasurer | Performs approved billing, payment, expense, and reporting duties. | Assigned society and granted capabilities. | Proposed launch role. |
+| Block Head | Coordinates approved work for an assigned building or block. | Assigned blocks. | Proposed launch role within the confirmed block-committee category. |
+| Committee Member | Performs specifically assigned responsibilities. | Assigned society or blocks and granted capabilities. | Confirmed actor category; responsibility catalogue proposed. |
+| Homeowner | Accesses approved information and services for owned residences. | Authorised residential memberships. | Confirmed actor. |
+| Tenant | Accesses approved information and services for occupied residences. | Authorised residential memberships during valid occupancy. | Confirmed actor. |
+| Authorised Resident | Uses approved resident services for an associated residence. | Explicitly authorised residential memberships. | Confirmed actor category; final role mapping proposed. |
 
-Role names and final capabilities remain subject to approval. A person may have multiple scoped assignments and may belong to multiple societies or residential units.
+The authorised-resident actor category is confirmed, while its final role name and capabilities remain proposed. Other role names and final capabilities also remain subject to approval. A person may have multiple scoped assignments and may belong to multiple societies or residential units.
 
 ## Functional requirements
 
@@ -279,6 +291,7 @@ The platform must not invent late fees, taxes, exemptions, discounts, proration,
 
 - Use modular, typed, documented code; shared contracts; versioned migrations; automated tests; consistent tooling; CI; and controlled releases.
 - Keep business rules out of presentation components so future clients can reuse them.
+- Keep transport contracts and the shared API client independent from browser, Next.js, and Node.js presentation concerns so React Native can consume them without forking business rules.
 
 ### Observability and operations
 
@@ -313,7 +326,7 @@ Every phase must define and execute relevant checks from this set:
 
 ## Dependencies and approvals
 
-- Phase 01 requires Phase 00 approval.
+- Phase 00 is approved and Phase 01 is ready for a separate implementation instruction.
 - Phase 03 requires hierarchy, membership, and tenant-isolation decisions needed by the schema.
 - Phase 04 requires final role and permission decisions for initial launch.
 - Phases 08 and 09 require approved billing and financial policies.
