@@ -27,7 +27,7 @@ The application is not yet released. A supported-version table, response targets
 - Public visibility does not make secrets, resident information, society documents, production exports, private logs, or real environment configuration acceptable source content.
 - Use synthetic identities and records for examples, tests, screenshots, fixtures, and issue reproduction.
 - Do not add an open-source licence without a new approved ownership decision.
-- Phase 01 CI must add secret scanning and dependency review appropriate for a public repository.
+- Phase 01 CI runs the repository secret scanner, frozen installation, automated tests, and production builds. Provider-side secret scanning, dependency alerts, and branch protection must remain enabled and reviewed for the public repository.
 - A later private conversion does not remove material from clones, forks, caches, package artefacts, or prior public history.
 - If sensitive content is committed, immediately stop further distribution, rotate affected credentials, preserve incident evidence, assess exposure, and perform approved history remediation. Deleting only the latest file is insufficient.
 
@@ -129,7 +129,7 @@ The project treats these as primary risks:
 
 - Pin compatible dependency versions through the approved lockfile.
 - Review new packages for maintenance, provenance, licence, transitive risk, and necessity.
-- Run dependency and secret scanning in CI once the project foundation exists.
+- Run repository secret scanning in CI; retain provider-side dependency and secret alerts for the public repository.
 - Protect the default branch, require review and passing checks, and restrict deployment credentials.
 - Produce builds from reviewed source and identify deployed releases.
 - Do not suppress vulnerability findings without a documented risk decision and expiry.

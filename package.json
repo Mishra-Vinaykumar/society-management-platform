@@ -1,0 +1,38 @@
+{
+  "name": "society-management-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Multi-tenant residential society management platform",
+  "packageManager": "pnpm@12.23.0",
+  "engines": {
+    "node": "26.13.1",
+    "pnpm": "12.23.0"
+  },
+  "scripts": {
+    "preinstall": "node scripts/verify-toolchain.mjs",
+    "dev": "turbo run dev",
+    "dev:web": "pnpm --filter @society/web dev",
+    "dev:api": "pnpm --filter @society/api dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "pretest:e2e": "pnpm build",
+    "test:e2e": "node scripts/run-e2e.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "security:audit": "pnpm audit --audit-level high",
+    "security:secrets": "node scripts/check-secrets.mjs",
+    "check": "pnpm security:secrets && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@society/config": "workspace:*",
+    "@types/node": "26.6.11",
+    "eslint": "9.39.5",
+    "prettier": "3.10.1",
+    "turbo": "2.11.13",
+    "typescript": "6.0.3",
+    "vitest": "5.1.2"
+  }
+}

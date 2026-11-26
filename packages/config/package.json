@@ -1,0 +1,39 @@
+{
+  "name": "@society/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./eslint/base": "./eslint/base.mjs",
+    "./tsconfig/base.json": "./tsconfig/base.json",
+    "./tsconfig/library.json": "./tsconfig/library.json",
+    "./tsconfig/nest.json": "./tsconfig/nest.json",
+    "./tsconfig/next.json": "./tsconfig/next.json"
+  },
+  "files": [
+    "dist",
+    "eslint",
+    "tsconfig"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@eslint/js": "9.39.5",
+    "globals": "17.14.0",
+    "typescript-eslint": "8.74.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.39.5",
+    "typescript": ">=6.0.3 <6.1.0"
+  }
+}
